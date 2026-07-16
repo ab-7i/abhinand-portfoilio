@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abhinand A | Unreal Engine Game Developer & Systems Engineer</title>
+    <meta name="description" content="Portfolio of Abhinand A, an Unreal Engine game developer specializing in AI logic, level design, immersive worlds, and Python/Django backend systems.">
+    <meta name="keywords" content="Game Developer, Unreal Engine, C++, Python, Level Design, AI Programming, Calicut, India">
+    <meta name="author" content="Abhinand A">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Custom Glow Cursor -->
+    <div class="custom-cursor-dot" id="cursor-dot"></div>
+    <div class="custom-cursor-glow" id="cursor-glow"></div>
+
+    <!-- Background Blueprint Canvas -->
+    <canvas id="blueprint-canvas"></canvas>
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress-container">
+        <div class="scroll-progress-bar" id="progress-bar"></div>
+    </div>
+
+    <!-- Tech Boot Preloader -->
+    <div class="preloader-overlay" id="preloader">
+        <div class="preloader-content">
+            <div class="preloader-logo">
+                <span class="logo-accent">//</span> ABHINAND A
+            </div>
+            <div class="preloader-terminal" id="preloader-terminal">
+                <p class="term-line">INITIALIZING KERNEL SYSTEM...</p>
+                <p class="term-line">LOADING GRAPHICS ENGINES (UNREAL ENGINE 5.4)...</p>
+                <p class="term-line">COMPILING BLUEPRINT NODES...</p>
+                <p class="term-line">ESTABLISHING DEV NETWORK HANDSHAKE...</p>
+            </div>
+            <div class="preloader-bar-wrapper">
+                <div class="preloader-bar" id="preloader-bar"></div>
+            </div>
+            <div class="preloader-percent" id="preloader-percent">0%</div>
+        </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header class="main-header" id="main-header">
+        <div class="header-container">
+            <a href="#home" class="logo">
+                <span class="logo-bracket">&lt;</span>AA<span class="logo-slash">/</span><span class="logo-bracket">&gt;</span>
+                <span class="logo-text">ABHINAND A</span>
+            </a>
+            
+            <nav class="nav-menu" id="nav-menu">
+                <ul>
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#skills" class="nav-link">Skills</a></li>
+                    <li><a href="#experience" class="nav-link">Experience</a></li>
+                    <li><a href="#projects" class="nav-link">Projects</a></li>
+                    <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                    <li><a href="#services" class="nav-link">Services</a></li>
+                    <li><a href="#education" class="nav-link">Education</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="nav-resume-mobile">
+                    <a href="RESUME.pdf" target="_blank" class="btn btn-secondary btn-sm">Resume</a>
+                </div>
+            </nav>
+
+            <div class="header-actions">
+                <a href="RESUME.pdf" target="_blank" class="btn btn-outline btn-sm desktop-only">RESUME</a>
+                <button class="hamburger-menu" id="hamburger-btn" aria-label="Toggle Menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="hero-bg-glow"></div>
+            <div class="hero-container">
+                <div class="hero-content">
+                    <div class="hero-badge scroll-reveal">
+                        <span class="badge-dot"></span> NOW DEVELOPING INTERACTIVE virtual WORLDS
+                    </div>
+                    <h1 class="hero-title scroll-reveal">
+                        ABHINAND A
+                    </h1>
+                    <h2 class="hero-subtitle scroll-reveal">
+                        UNREAL ENGINE GAME DEVELOPER
+                    </h2>
+                    <p class="hero-tagline scroll-reveal">
+                        Architecting interactive gameplay mechanics, low-level system integrations, and realistic AI behaviors in Unreal Engine 5.
+                    </p>
+                    <div class="hero-buttons scroll-reveal">
+                        <a href="#projects" class="btn btn-primary">
+                            <span>VIEW PROJECTS</span>
+                            <i class="fa-solid fa-crosshairs"></i>
+                        </a>
+                        <a href="#contact" class="btn btn-outline">
+                            <span>GET IN TOUCH</span>
+                            <i class="fa-solid fa-code"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-graphic scroll-reveal">
+                    <div class="graphic-wrapper">
+                        <!-- Hologram overlay effects -->
+                        <div class="blueprint-overlay"></div>
+                        <div class="hologram-scanline"></div>
+                        <img src="assets/images/hero_character.png" alt="Unreal Engine Blueprint Character Graphic" class="hero-main-img">
+                        
+                        <!-- Floating Blueprint nodes / UI elements simulated with CSS -->
+                        <div class="blueprint-node node-1 floating-node">
+                            <span class="node-header">Event BeginPlay</span>
+                            <span class="node-body">Cast To CharacterMovement</span>
+                        </div>
+                        <div class="blueprint-node node-2 floating-node">
+                            <span class="node-header">AI Behavior Tree</span>
+                            <span class="node-body">Task: FindPathToPlayer</span>
+                        </div>
+                        <div class="blueprint-node node-3 floating-node">
+                            <span class="node-header">Linetrace Single</span>
+                            <span class="node-body">Hit Location: Vector3D</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="scroll-indicator">
+                <a href="#about" aria-label="Scroll Down">
+                    <div class="mouse-wheel-box">
+                        <div class="mouse-wheel"></div>
+                    </div>
+                    <span class="scroll-text">SYSTEM PROFILE</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section section-padding">
+            <div class="section-header container">
+                <span class="section-pre">SYSTEM STATUS</span>
+                <h2 class="section-title">THE PROFILE</h2>
+                <div class="title-divider"></div>
+            </div>
+            
+            <div class="container about-grid">
+                <div class="about-visual scroll-reveal">
+                    <div class="profile-image-container">
+                        <img src="assets/images/profile.png" alt="Abhinand A Profile Avatar" class="profile-img">
+                        <div class="tech-box-borders"></div>
+                        <div class="tech-status-tag">ACTIVE UNREAL DEV</div>
+                    </div>
+                </div>
+                
+                <div class="about-info scroll-reveal">
+                    <h3>CREATING INTERACTIVE GAMEPLAY EXPERIENCES</h3>
+                    <p class="about-lead">
+                        I am a keen Unreal Engine game developer based in India, with a special interest in AI programming and immersive world creation.
+                    </p>
+                    <p class="about-desc">
+                        I specialize in creating engaging player mechanics, robust enemy AI logic, level design, and custom user interface systems. My background extends to fullstack Python web development (Django, Flask) and enterprise custom configurations (Odoo), which gives me a unique advantage in combining web-based database management with high-performance 3D applications.
+                    </p>
+                    
+                    <div class="about-philosophy">
+                        <div class="phil-card">
+                            <div class="phil-icon"><i class="fa-solid fa-gamepad"></i></div>
+                            <h4>VISION</h4>
+                            <p>To develop virtual worlds that are vibrant, memorable, and rich in creative storytelling.</p>
+                        </div>
+                        <div class="phil-card">
+                            <div class="phil-icon"><i class="fa-solid fa-microchip"></i></div>
+                            <h4>MISSION</h4>
+                            <p>Leverage technical skills to create fluid mechanics, tactile feedback, and highly modular code systems.</p>
+                        </div>
+                    </div>
+
+                    <!-- Animated Counters -->
+                    <div class="counters-grid" id="counters">
+                        <div class="counter-card">
+                            <div class="counter-number" data-target="3">0</div>
+                            <div class="counter-label">Years of Development</div>
+                        </div>
+                        <div class="counter-card">
+                            <div class="counter-number" data-target="2">0</div>
+                            <div class="counter-label">Game Projects Built</div>
+                        </div>
+                        <div class="counter-card">
+                            <div class="counter-number" data-target="8">0</div>
+                            <div class="counter-label">Technologies Mastered</div>
+                        </div>
+                        <div class="counter-card">
+                            <div class="counter-number" data-target="25">0</div>
+                            <div class="counter-label">Code Repositories</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="skills-section section-padding">
+            <div class="section-header container">
+                <span class="section-pre">ABILITIES TREE</span>
+                <h2 class="section-title">CORE SKILLSET</h2>
+                <div class="title-divider"></div>
+            </div>
+
+            <div class="container skills-grid">
+                <!-- Skill Category: Game Dev -->
+                <div class="skill-category-card scroll-reveal">
+                    <div class="skill-cat-header">
+                        <i class="fa-solid fa-compass-drafting"></i>
+                        <h3>UNREAL ENGINE & GAME DEV</h3>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <div class="skill-meta"><span>Level Design & Lighting</span><span class="skill-pct">92%</span></div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 92%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-meta"><span>Game Mechanics & Prototyping</span><span class="skill-pct">90%</span></div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 90%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-meta"><span>Blueprint & AI Behavior Trees</span><span class="skill-pct">88%</span></div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 88%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-meta"><span>Character Movement Components</span><span class="skill-pct">85%</span></div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 85%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Category: Programming Languages -->
+                <div class="skill-category-card scroll-reveal">
+                    <div class="skill-cat-header">
+                        <i class="fa-solid fa-code"></i>
+                        <h3>PROGRAMMING LANGUAGES</h3>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <div class="skill-meta"><span>C++ (Game logic)</span><span class="skill-pct">80%</span></div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 80%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-meta"><span>Python (Backend/Tools)</span><span class="skill-pct">90%</span></div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 90%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-meta"><span>JavaScript (Interactive Web)</span><span class="skill-pct">75%</span></div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 75%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-meta"><span>HTML5 / CSS3</span><span class="skill-pct">85%</span></div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 85%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Category: Backend & Web Development -->
+                <div class="skill-category-card scroll-reveal">
+                    <div class="skill-cat-header">
+                        <i class="fa-solid fa-network-wired"></i>
+                        <h3>BACKEND & WEB DEV</h3>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <div class="skill-meta"><span>Django Framework</span><span class="skill-pct">85%</span></div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 85%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-meta"><span>Odoo Customization</span><span class="skill-pct">88%</span></div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 88%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-meta"><span>Flask Microframework</span><span class="skill-pct">80%</span></div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 80%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-meta"><span>RESTful API Integration</span><span class="skill-pct">82%</span></div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 82%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Category: Databases & Storage -->
+                <div class="skill-category-card scroll-reveal">
+                    <div class="skill-cat-header">
+                        <i class="fa-solid fa-database"></i>
+                        <h3>DATABASES & STORAGE</h3>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <div class="skill-meta"><span>PostgreSQL</span><span class="skill-pct">85%</span></div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 85%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-meta"><span>MySQL</span><span class="skill-pct">80%</span></div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 80%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-meta"><span>SQLite</span><span class="skill-pct">82%</span></div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 82%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Category: Production Tools -->
+                <div class="skill-category-card scroll-reveal">
+                    <div class="skill-cat-header">
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                        <h3>DEVELOPER TOOLS</h3>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <div class="skill-meta"><span>Git / GitHub</span><span class="skill-pct">90%</span></div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 90%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-meta"><span>Visual Studio / VS Code</span><span class="skill-pct">92%</span></div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 92%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-meta"><span>Blender (3D Pipeline)</span><span class="skill-pct">75%</span></div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 75%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Category: Systems & Platforms -->
+                <div class="skill-category-card scroll-reveal">
+                    <div class="skill-cat-header">
+                        <i class="fa-solid fa-server"></i>
+                        <h3>SYSTEMS & PLATFORMS</h3>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <div class="skill-meta"><span>Linux Deployment</span><span class="skill-pct">80%</span></div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 80%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-meta"><span>Docker Containers</span><span class="skill-pct">72%</span></div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 72%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-meta"><span>XML configuration files</span><span class="skill-pct">85%</span></div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 85%"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="experience-section section-padding">
+            <div class="section-header container">
+                <span class="section-pre">QUEST LOG</span>
+                <h2 class="section-title">CHRONOLOGY</h2>
+                <div class="title-divider"></div>
+            </div>
+
+            <div class="container timeline-container">
+                <div class="timeline-line"></div>
+                
+                <!-- Timeline Event 1 -->
+                <div class="timeline-item scroll-reveal left">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <div class="job-meta">
+                                <h3>Unreal Engine Game Developer (Internship)</h3>
+                                <span class="company">EXR Games</span>
+                            </div>
+                            <span class="timeline-date">2026 (2 Months)</span>
+                        </div>
+                        <p class="job-desc">
+                            Responsible for level design layouts, prototyping game mechanics, and styling custom game UI menus. Engineered player character movement custom components, and implemented behavioral AI logic paths.
+                        </p>
+                        <div class="job-tags">
+                            <span class="tag">UE5</span>
+                            <span class="tag">Blueprints</span>
+                            <span class="tag">AI Logic</span>
+                            <span class="tag">Game UI</span>
+                            <span class="tag">Level Design</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Event 2 -->
+                <div class="timeline-item scroll-reveal right">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <div class="job-meta">
+                                <h3>Freelance Odoo Developer</h3>
+                                <span class="company">Self-Employed</span>
+                            </div>
+                            <span class="timeline-date">2024 - 2025</span>
+                        </div>
+                        <p class="job-desc">
+                            Architected bespoke enterprise features, configured security settings, custom XML menus, and mapped Python database models for ERP business management systems.
+                        </p>
+                        <div class="job-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Odoo ERP</span>
+                            <span class="tag">PostgreSQL</span>
+                            <span class="tag">XML Modules</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Event 3 -->
+                <div class="timeline-item scroll-reveal left">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <div class="job-meta">
+                                <h3>Junior Odoo Developer</h3>
+                                <span class="company">Odox Softhub LLP (Cyber Park, Calicut)</span>
+                            </div>
+                            <span class="timeline-date">09/2022 - 12/2023</span>
+                        </div>
+                        <p class="job-desc">
+                            Assisted in building Python-based ERP applications, customized modules, automated reporting outputs, and developed integrations with relational databases.
+                        </p>
+                        <div class="job-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Django</span>
+                            <span class="tag">PostgreSQL</span>
+                            <span class="tag">Git</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="projects-section section-padding">
+            <div class="section-header container">
+                <span class="section-pre">PROJECT DEPLOYMENTS</span>
+                <h2 class="section-title">FEATURED SHIELDS</h2>
+                <div class="title-divider"></div>
+            </div>
+
+            <div class="container projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card scroll-reveal" data-project-id="project-1">
+                    <div class="project-img-wrapper">
+                        <img src="assets/images/project_fantasy.png" alt="Crystal Quest Game Screen" class="project-img">
+                        <div class="project-overlay-glow"></div>
+                        <span class="project-status">SHIPPED - SOLO</span>
+                    </div>
+                    <div class="project-summary">
+                        <div class="project-tech"><span>Blueprints</span> | <span>Unreal Engine 5</span></div>
+                        <h3 class="project-title">CRYSTAL QUEST</h3>
+                        <p class="project-excerpt">A realistic adventure game developed in Unreal Engine 5 featuring smart AI and interactive hazards.</p>
+                        <button class="btn btn-outline btn-sm btn-expand">CASE STUDY <i class="fa-solid fa-chevron-down"></i></button>
+                    </div>
+                    
+                    <!-- Expanded content revealed via JS -->
+                    <div class="project-detail-content">
+                        <div class="details-divider"></div>
+                        <h4>Core Contributions & Features</h4>
+                        <ul class="features-list">
+                            <li>Developed realistic adventure level environments, lighting passes, and fog overlays.</li>
+                            <li>Designed custom sensory AI paths and responsive trap triggers.</li>
+                            <li>Programmed game UI screens for player health tracking and state transitions.</li>
+                        </ul>
+                        <div class="tech-stack-pills">
+                            <span class="pill">UE5</span>
+                            <span class="pill">Enemy AI</span>
+                            <span class="pill">Lumen Global Illumination</span>
+                            <span class="pill">Traps</span>
+                            <span class="pill">UMG HUD</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-play"></i> Watch Play</a>
+                            <a href="#" class="btn btn-outline btn-sm"><i class="fa-brands fa-github"></i> Repository</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card scroll-reveal" data-project-id="project-2">
+                    <div class="project-img-wrapper">
+                        <img src="assets/images/project_cyberpunk.png" alt="Treasure Temple Game Screen" class="project-img">
+                        <div class="project-overlay-glow"></div>
+                        <span class="project-status">COMPLETED - GROUP</span>
+                    </div>
+                    <div class="project-summary">
+                        <div class="project-tech"><span>Blueprints</span> | <span>Level Design</span></div>
+                        <h3 class="project-title">TREASURE TEMPLE</h3>
+                        <p class="project-excerpt">An immersive multiplayer environment that leads players through dense forests to a hidden temple structure.</p>
+                        <button class="btn btn-outline btn-sm btn-expand">CASE STUDY <i class="fa-solid fa-chevron-down"></i></button>
+                    </div>
+                    
+                    <!-- Expanded content revealed via JS -->
+                    <div class="project-detail-content">
+                        <div class="details-divider"></div>
+                        <h4>Core Contributions & Features</h4>
+                        <ul class="features-list">
+                            <li>Built intriguing level environments, foliage paths, and temple lighting.</li>
+                            <li>Designed and scripted responsive game UI overlay trees.</li>
+                            <li>Implemented functional inventory system managing item tracking indices.</li>
+                        </ul>
+                        <div class="tech-stack-pills">
+                            <span class="pill">UE5 Blueprints</span>
+                            <span class="pill">Level Design</span>
+                            <span class="pill">Inventory System</span>
+                            <span class="pill">Game UI</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-play"></i> Case Video</a>
+                            <a href="#" class="btn btn-outline btn-sm"><i class="fa-brands fa-github"></i> Source Docs</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card scroll-reveal" data-project-id="project-3">
+                    <div class="project-img-wrapper">
+                        <img src="assets/images/project_space.png" alt="Odoo Custom Enterprise Systems" class="project-img">
+                        <div class="project-overlay-glow"></div>
+                        <span class="project-status">DEPLOYED - ERP</span>
+                    </div>
+                    <div class="project-summary">
+                        <div class="project-tech"><span>Python</span> | <span>Odoo Framework</span></div>
+                        <h3 class="project-title">ODOO AUTOMATION ENGINE</h3>
+                        <p class="project-excerpt">A custom enterprise system linking Django backend pipelines with active server databases.</p>
+                        <button class="btn btn-outline btn-sm btn-expand">CASE STUDY <i class="fa-solid fa-chevron-down"></i></button>
+                    </div>
+                    
+                    <!-- Expanded content revealed via JS -->
+                    <div class="project-detail-content">
+                        <div class="details-divider"></div>
+                        <h4>Core Contributions & Features</h4>
+                        <ul class="features-list">
+                            <li>Authored modular Python scripts automating inventory database synchronization.</li>
+                            <li>Configured complex access controls and user group filters.</li>
+                            <li>Connected secure REST API endpoints with third-party dashboards.</li>
+                        </ul>
+                        <div class="tech-stack-pills">
+                            <span class="pill">Python</span>
+                            <span class="pill">Odoo Framework</span>
+                            <span class="pill">PostgreSQL</span>
+                            <span class="pill">Django REST</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="#" class="btn btn-primary btn-sm"><i class="fa-solid fa-play"></i> ERP Demo</a>
+                            <a href="#" class="btn btn-outline btn-sm"><i class="fa-brands fa-github"></i> GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="gallery-section section-padding">
+            <div class="section-header container">
+                <span class="section-pre">RENDER GRID</span>
+                <h2 class="section-title">GAME ART & SCREENS</h2>
+                <div class="title-divider"></div>
+            </div>
+
+            <div class="container gallery-grid">
+                <!-- Gallery Item 1 -->
+                <div class="gallery-item scroll-reveal" data-title="Crystal Quest: Ancient Ruins" data-desc="Realtime UE5 lighting test using Lumen global illumination.">
+                    <img src="assets/images/gallery_1.png" alt="Crystal Quest: Ancient Ruins Render" class="gallery-img">
+                    <div class="gallery-info">
+                        <h4>CRYSTAL QUEST FOREST</h4>
+                        <span class="gallery-tag">Environment Art</span>
+                    </div>
+                </div>
+
+                <!-- Gallery Item 2 -->
+                <div class="gallery-item scroll-reveal" data-title="Treasure Temple: Hidden Entrance" data-desc="Foliage level design mapping volumetric fog and dynamic particle grids.">
+                    <img src="assets/images/gallery_2.png" alt="Treasure Temple: Hidden Entrance Render" class="gallery-img">
+                    <div class="gallery-info">
+                        <h4>TEMPLE ENTRANCE</h4>
+                        <span class="gallery-tag">Level Design</span>
+                    </div>
+                </div>
+
+                <!-- Gallery Item 3 -->
+                <div class="gallery-item scroll-reveal" data-title="Loot Inventory Assets" data-desc="3D modeled chest asset imported and calibrated into the inventory system.">
+                    <img src="assets/images/gallery_3.png" alt="Loot Inventory Assets Render" class="gallery-img">
+                    <div class="gallery-info">
+                        <h4>TEMPLE LOOT CHEST</h4>
+                        <span class="gallery-tag">Hard Surface 3D</span>
+                    </div>
+                </div>
+
+                <!-- Gallery Item 4 -->
+                <div class="gallery-item scroll-reveal" data-title="Enemy AI Mesh Blueprint" data-desc="AI controller mesh wireframe outline demonstrating collision bounding paths.">
+                    <img src="assets/images/gallery_4.png" alt="Enemy AI Mesh Blueprint Render" class="gallery-img">
+                    <div class="gallery-info">
+                        <h4>AI PATROL MECHANIC</h4>
+                        <span class="gallery-tag">AI Blueprint</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lightbox Overlay -->
+        <div class="lightbox-overlay" id="lightbox">
+            <button class="lightbox-close" id="lightbox-close" aria-label="Close Lightbox">&times;</button>
+            <div class="lightbox-content">
+                <img src="" alt="" class="lightbox-img" id="lightbox-img">
+                <div class="lightbox-caption">
+                    <h4 id="lightbox-title"></h4>
+                    <p id="lightbox-desc"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Services Section -->
+        <section id="services" class="services-section section-padding">
+            <div class="section-header container">
+                <span class="section-pre">OPERATIONAL ROLES</span>
+                <h2 class="section-title">SERVICES OFFERED</h2>
+                <div class="title-divider"></div>
+            </div>
+
+            <div class="container services-grid">
+                <!-- Service 1 -->
+                <div class="service-card scroll-reveal">
+                    <div class="service-icon"><i class="fa-solid fa-gamepad"></i></div>
+                    <h3>Game Development</h3>
+                    <p>Building high-fidelity games in Unreal Engine 5, managing player state machines, mechanics, and asset integration pipelines.</p>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="service-card scroll-reveal">
+                    <div class="service-icon"><i class="fa-solid fa-code"></i></div>
+                    <h3>Gameplay Programming</h3>
+                    <p>Authoring locomotion networks, physics interaction systems, player triggers, and interactive elements using Blueprints and C++.</p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="service-card scroll-reveal">
+                    <div class="service-icon"><i class="fa-solid fa-brain"></i></div>
+                    <h3>AI Logic Systems</h3>
+                    <p>Implementing intelligent AI sensory agents, squad tracking loops, navigation mesh custom parameters, and behavior trees.</p>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="service-card scroll-reveal">
+                    <div class="service-icon"><i class="fa-solid fa-cubes"></i></div>
+                    <h3>Level Design & Lighting</h3>
+                    <p>Designing immersive environments, configuring foliage density, adjusting material profiles, and crafting realistic dynamic lighting.</p>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="service-card scroll-reveal">
+                    <div class="service-icon"><i class="fa-solid fa-window-restore"></i></div>
+                    <h3>Backend Development</h3>
+                    <p>Constructing scalable Python web micro-systems with Django and Flask, managing SQL/Postgres relational database schemas.</p>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="service-card scroll-reveal">
+                    <div class="service-icon"><i class="fa-solid fa-terminal"></i></div>
+                    <h3>ERP & Customization</h3>
+                    <p>Custom Odoo configuration, XML configuration setups, automated reporting systems, and custom database synchronization.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools & Tech Grid Section -->
+        <section id="tools" class="tools-section section-padding">
+            <div class="section-header container">
+                <span class="section-pre">ENGINEERING STACK</span>
+                <h2 class="section-title">THE ARMORY</h2>
+                <div class="title-divider"></div>
+            </div>
+
+            <div class="container tools-grid">
+                <!-- Tool 1 -->
+                <div class="tool-item scroll-reveal">
+                    <i class="fa-solid fa-cubes tool-icon-brand"></i>
+                    <span>UNREAL ENGINE</span>
+                </div>
+                <!-- Tool 2 -->
+                <div class="tool-item scroll-reveal">
+                    <div class="cpp-icon-container">C++</div>
+                    <span>C++ LANGUAGE</span>
+                </div>
+                <!-- Tool 3 -->
+                <div class="tool-item scroll-reveal">
+                    <i class="fa-brands fa-python"></i>
+                    <span>PYTHON</span>
+                </div>
+                <!-- Tool 4 -->
+                <div class="tool-item scroll-reveal">
+                    <i class="fa-brands fa-git-alt"></i>
+                    <span>GIT SYSTEM</span>
+                </div>
+                <!-- Tool 5 -->
+                <div class="tool-item scroll-reveal">
+                    <i class="fa-solid fa-database"></i>
+                    <span>POSTGRESQL</span>
+                </div>
+                <!-- Tool 6 -->
+                <div class="tool-item scroll-reveal">
+                    <i class="fa-solid fa-laptop-code"></i>
+                    <span>DJANGO / FLASK</span>
+                </div>
+                <!-- Tool 7 -->
+                <div class="tool-item scroll-reveal">
+                    <i class="fa-solid fa-briefcase"></i>
+                    <span>ODOO ERP</span>
+                </div>
+                <!-- Tool 8 -->
+                <div class="tool-item scroll-reveal">
+                    <i class="fa-solid fa-cube"></i>
+                    <span>BLENDER 3D</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="education-section section-padding">
+            <div class="section-header container">
+                <span class="section-pre">ACADEMIC RECORDS</span>
+                <h2 class="section-title">TRAINING LOG</h2>
+                <div class="title-divider"></div>
+            </div>
+
+            <div class="container education-grid">
+                <!-- Academic 1 -->
+                <div class="edu-card scroll-reveal">
+                    <div class="edu-year">2026</div>
+                    <h3>Unreal Engine Game Development</h3>
+                    <p class="edu-inst">EXR Games</p>
+                    <p class="edu-detail">Intense hands-on training focusing on player character locomotion systems, UI screens, AI trees, and 3D level environments.</p>
+                </div>
+
+                <!-- Academic 2 -->
+                <div class="edu-card scroll-reveal">
+                    <div class="edu-year">2019</div>
+                    <h3>Python Django Certification</h3>
+                    <p class="edu-inst">Avodha Institute Kochi</p>
+                    <p class="edu-detail">Specialized course covering low-level structures, database management systems, routing architectures, and REST API frameworks.</p>
+                </div>
+
+                <!-- Academic 3 -->
+                <div class="edu-card scroll-reveal">
+                    <div class="edu-year">2015 - 2018</div>
+                    <h3>Bachelor of Computer Science (B.Sc. Cs)</h3>
+                    <p class="edu-inst">University of Calicut</p>
+                    <p class="edu-detail">Graduated with a solid foundation in computer architecture, low-level data structure layouts, programming theory, and SQL databases.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="testimonials-section section-padding">
+            <div class="section-header container">
+                <span class="section-pre">COMMENDATIONS</span>
+                <h2 class="section-title">COMMUNICATION RADAR</h2>
+                <div class="title-divider"></div>
+            </div>
+
+            <div class="container testimonials-slider-wrapper scroll-reveal">
+                <div class="testimonials-slider" id="testimonials-slider">
+                    <!-- Slide 1 -->
+                    <div class="testimonial-slide active">
+                        <div class="testimonial-content">
+                            <i class="fa-solid fa-quote-left quote-icon"></i>
+                            <p>Abhinand's level environments and custom trap systems in Unreal Engine 5 are highly performant and detail-oriented. He has a brilliant approach to solving AI navigation problems.</p>
+                            <div class="client-meta">
+                                <strong>Technical Lead</strong>
+                                <span>EXR Games Internship Team</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="testimonial-slide">
+                        <div class="testimonial-content">
+                            <i class="fa-solid fa-quote-left quote-icon"></i>
+                            <p>A reliable backend and Odoo programmer. He automated our inventory databases and configured complex relational schemas with absolute attention to security permissions.</p>
+                            <div class="client-meta">
+                                <strong>Operations Manager</strong>
+                                <span>ERP Solutions Client</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="testimonial-slide">
+                        <div class="testimonial-content">
+                            <i class="fa-solid fa-quote-left quote-icon"></i>
+                            <p>He is excellent at blending low-level database efficiency with web APIs. Code delivered was modular, clean, and extremely easy for our internal developers to build upon.</p>
+                            <div class="client-meta">
+                                <strong>Technical Director</strong>
+                                <span>Odox Softhub LLP Collaboration</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Controls -->
+                <div class="slider-controls">
+                    <button class="slider-btn" id="slider-prev" aria-label="Previous Slide"><i class="fa-solid fa-chevron-left"></i></button>
+                    <div class="slider-dots" id="slider-dots">
+                        <!-- Filled in via JS -->
+                    </div>
+                    <button class="slider-btn" id="slider-next" aria-label="Next Slide"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section section-padding">
+            <div class="section-header container">
+                <span class="section-pre">UPLINK STATIONS</span>
+                <h2 class="section-title">INITIATE CONNECTION</h2>
+                <div class="title-divider"></div>
+            </div>
+
+            <div class="container contact-grid">
+                <!-- Contact info cards -->
+                <div class="contact-info scroll-reveal">
+                    <h3>GET IN TOUCH</h3>
+                    <p class="contact-lead">Let's discuss game mechanics, level design systems, backend integrations, or potential roles.</p>
+                    
+                    <div class="contact-cards-container">
+                        <!-- Location -->
+                        <div class="info-card">
+                            <div class="info-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+                            <div class="info-body">
+                                <h4>LOCATION</h4>
+                                <p>Vadakara, Kozhikode, Kerala, India</p>
+                            </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="info-card">
+                            <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
+                            <div class="info-body">
+                                <h4>COMMUNICATION</h4>
+                                <p><a href="mailto:abhinandabi755@gmail.com" style="color: #fff; text-decoration: none; transition: var(--transition-fast);" onmouseover="this.style.color='var(--accent-blue)'" onmouseout="this.style.color='#fff'">abhinandabi755@gmail.com</a></p>
+                            </div>
+                        </div>
+
+                        <!-- WhatsApp -->
+                        <div class="info-card">
+                            <div class="info-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                            <div class="info-body">
+                                <h4>WHATSAPP TERMINAL</h4>
+                                <p><a href="https://wa.me/917559894840" target="_blank" style="color: #fff; text-decoration: none; transition: var(--transition-fast);" onmouseover="this.style.color='var(--accent-blue)'" onmouseout="this.style.color='#fff'">+91 7559894840</a></p>
+                            </div>
+                        </div>
+
+                        <!-- Languages -->
+                        <div class="info-card">
+                            <div class="info-icon"><i class="fa-solid fa-language"></i></div>
+                            <div class="info-body">
+                                <h4>LANGUAGES SUPPORTED</h4>
+                                <p>English, Hindi, Malayalam</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social links -->
+                    <div class="social-links-container">
+                        <a href="https://github.com" target="_blank" class="social-link-item" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                        <a href="https://linkedin.com" target="_blank" class="social-link-item" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form-wrapper scroll-reveal">
+                    <form id="contact-form" class="contact-form" action="#" method="POST">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="form-name">DEVELOPER ID / NAME</label>
+                                <input type="text" id="form-name" name="name" placeholder="John Doe" required>
+                                <span class="input-glow"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="form-email">COMM CHANNEL / EMAIL</label>
+                                <input type="email" id="form-email" name="email" placeholder="john@example.com" required>
+                                <span class="input-glow"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="form-subject">COMMUNICATION SUBJECT</label>
+                            <input type="text" id="form-subject" name="subject" placeholder="Project Proposition" required>
+                            <span class="input-glow"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="form-message">MESSAGE DETAIL</label>
+                            <textarea id="form-message" name="message" rows="6" placeholder="Enter transmission details..." required></textarea>
+                            <span class="input-glow"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block" id="form-submit-btn">
+                            <span>TRANSMIT SIGNAL</span>
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+                    <div class="form-status-msg" id="form-status">Transmission completed successfully.</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a href="#home" class="logo">
+                    <span class="logo-bracket">&lt;</span>AA<span class="logo-slash">/</span><span class="logo-bracket">&gt;</span>
+                    <span class="logo-text">ABHINAND A</span>
+                </a>
+                <p>Architecting interactive gameplay mechanics and backend database codebases for virtual environments.</p>
+            </div>
+            
+            <div class="footer-links">
+                <h4>NAVIGATION</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>DATA SHEETS</h4>
+                <ul>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#education">Education</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-contact">
+                <h4>ACTIVE DEPLOYMENT</h4>
+                <p>Looking for Game Developer or Junior gameplay roles. Available for remote consultations.</p>
+                <a href="#contact" class="btn btn-outline btn-sm">CONTACT COMMAND</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container footer-bottom-container">
+                <p class="copyright">&copy; 2026 Abhinand A. All rights reserved. Built with Unreal Engine discipline.</p>
+                <div class="footer-legal">
+                    <a href="#">Security Protocol</a>
+                    <a href="#">Systems Policy</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back to Top Button -->
+        <button class="back-to-top" id="back-to-top" aria-label="Scroll to Top">
+            <i class="fa-solid fa-arrow-up"></i>
+        </button>
+    </footer>
+
+    <!-- Custom Script -->
+    <script src="js/script.js"></script>
+</body>
+</html>
