@@ -396,19 +396,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const galleryItems = document.querySelectorAll('.gallery-item');
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
-    const lightboxTitle = document.getElementById('lightbox-title');
-    const lightboxDesc = document.getElementById('lightbox-desc');
     const lightboxClose = document.getElementById('lightbox-close');
 
     galleryItems.forEach(item => {
         item.addEventListener('click', () => {
             const imgSrc = item.querySelector('.gallery-img').getAttribute('src');
-            const title = item.getAttribute('data-title');
-            const desc = item.getAttribute('data-desc');
             
             lightboxImg.setAttribute('src', imgSrc);
-            lightboxTitle.textContent = title;
-            lightboxDesc.textContent = desc;
             
             lightbox.classList.add('active');
             document.body.style.overflow = 'hidden'; // Lock scrolling
@@ -427,6 +421,85 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    /* =========================================================================
+     * 10. VIDEO SHOWCASE LIVE PREVIEW
+     * =======================================================================*/
+    const videoCards = document.querySelectorAll('.video-card[data-video-id]');
+    const videoPreviewFrame = document.getElementById('video-preview-frame');
+    const videoPreviewTitle = document.getElementById('video-preview-title');
+    const videoPreviewDesc = document.getElementById('video-preview-desc');
+    const videoPreviewLink = document.getElementById('video-preview-link');
+    const videoPreviewKicker = document.getElementById('video-preview-kicker');
+
+    const previewState = {
+        id: 'jBOIC-qHxgI',
+        title: 'Level Design Showcase',
+        desc: 'Hover over any card below to swap the live preview screen. The video stays muted so recruiters can watch it instantly on your portfolio.',
+        link: 'https://youtu.be/jBOIC-qHxgI?si=ol7x_yPGqkilZzJy',
+        kicker: 'FEATURED / LIVE PREVIEW'
+    };
+
+    function buildEmbedUrl(id, autoplay = true) {
+        const params = new URLSearchParams({
+            autoplay: autoplay ? '1' : '0',
+            mute: '1',
+            playsinline: '1',
+            loop: '1',
+            playlist: id,
+            controls: '1',
+            rel: '0',
+            modestbranding: '1'
+        });
+
+        return `https://www.youtube-nocookie.com/embed/${id}?${params.toString()}`;
+    }
+
+    function setPreview(videoCard) {
+        if (!videoCard || !videoPreviewFrame) return;
+
+        const nextState = {
+            id: videoCard.dataset.videoId,
+            title: videoCard.dataset.videoTitle || previewState.title,
+            desc: videoCard.dataset.videoDesc || previewState.desc,
+            link: videoCard.dataset.videoLink || previewState.link,
+            kicker: videoCard.dataset.videoKicker || 'WORK VIDEO'
+        };
+
+        if (previewState.id === nextState.id) {
+            videoCard.classList.add('is-active');
+            return;
+        }
+
+        previewState.id = nextState.id;
+        previewState.title = nextState.title;
+        previewState.desc = nextState.desc;
+        previewState.link = nextState.link;
+        previewState.kicker = nextState.kicker;
+
+        videoPreviewFrame.setAttribute('src', buildEmbedUrl(nextState.id, true));
+        videoPreviewTitle.textContent = nextState.title;
+        videoPreviewDesc.textContent = nextState.desc;
+        videoPreviewLink.setAttribute('href', nextState.link);
+        videoPreviewKicker.textContent = nextState.kicker;
+
+        videoCards.forEach(card => card.classList.toggle('is-active', card === videoCard));
+    }
+
+    if (videoCards.length > 0) {
+        const defaultCard = document.querySelector('.video-card[data-video-id="jBOIC-qHxgI"]') || videoCards[0];
+        setPreview(defaultCard);
+
+        videoCards.forEach(card => {
+            card.addEventListener('mouseenter', () => setPreview(card));
+            card.addEventListener('focusin', () => setPreview(card));
+            card.addEventListener('click', (event) => {
+                if (!event.target.closest('a, button')) {
+                    setPreview(card);
+                }
+            });
+        });
+    }
+
     // ESC key close
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && lightbox.classList.contains('active')) {
@@ -435,7 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* =========================================================================
-     * 10. TESTIMONIAL CAROUSEL SLIDER
+     * 11. TESTIMONIAL CAROUSEL SLIDER
      * =======================================================================*/
     const slides = document.querySelectorAll('.testimonial-slide');
     const dotsContainer = document.getElementById('slider-dots');
