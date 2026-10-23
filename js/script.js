@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(0, 127, 255, 0.4)'; // Unreal Blue particle
+                ctx.fillStyle = 'rgba(192, 106, 118, 0.35)'; // Rose particle
                 ctx.fill();
             }
         }
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(0, 127, 255, ${alpha})`;
+                        ctx.strokeStyle = `rgba(192, 106, 118, ${alpha * 0.7})`;
                         ctx.lineWidth = 0.5;
                         ctx.stroke();
                     }
@@ -663,3 +663,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+/* Editorial hero: size the giant name so it spans the hero width exactly */
+(function () {
+    function fitHeroWord() {
+        const word = document.querySelector('.hero-ed-word');
+        if (!word) return;
+        const box = word.parentElement;
+        const cs = getComputedStyle(box);
+        const avail = box.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+        word.style.fontSize = '100px';
+        const w = word.getBoundingClientRect().width;
+        if (w > 0) word.style.fontSize = (100 * avail / w) + 'px';
+    }
+    fitHeroWord();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitHeroWord);
+    window.addEventListener('resize', fitHeroWord);
+})();
