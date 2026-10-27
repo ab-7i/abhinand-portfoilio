@@ -684,7 +684,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-/* Video reel: hover (or tap) the image to play the YouTube video in its place */
+/* Video reel: hover (or tap) a video's image to play it in place; it keeps
+ * playing until another video is hovered */
 (function () {
     const stages = Array.from(document.querySelectorAll('.vstage[data-video-id]'));
     if (!stages.length) return;
@@ -767,23 +768,23 @@ document.addEventListener('DOMContentLoaded', () => {
         stage.querySelector('.vstage-poster').addEventListener('click', function () { start(stage); });
     });
 
-    // The video frame swallows mouse events, so "leaving" is detected by the
-    // next mouse move the page sees outside the active video.
-    if (canHover) {
-        document.addEventListener('mousemove', function (e) {
-            if (active && !active.querySelector('.vstage-media').contains(e.target)) stop(active);
-        }, { passive: true });
-    }
-
-    // Create players as videos come near the screen so hover starts instantly;
-    // pause a video that scrolls out of view.
+    // Create players as videos come near the screen so hover starts instantly.
+    // The hovered video keeps playing until another one is hovered; it only
+    // pauses while scrolled off screen and resumes when it comes back.
     const near = new Set();
     function preloadVisible() { near.forEach(getPlayer); }
     const io = new IntersectionObserver(function (entries) {
         entries.forEach(function (en) {
             const stage = en.target.closest('.vstage');
-            if (en.isIntersecting) { near.add(stage); getPlayer(stage); }
-            else { near.delete(stage); if (active === stage) stop(stage); }
+            const p = players.get(stage);
+            if (en.isIntersecting) {
+                near.add(stage);
+                getPlayer(stage);
+                if (active === stage && p && stage._ready) p.playVideo();
+            } else {
+                near.delete(stage);
+                if (active === stage && p && stage._ready) p.pauseVideo();
+            }
         });
     }, { rootMargin: '300px 0px' });
     stages.forEach(function (s) { io.observe(s.querySelector('.vstage-media')); });
