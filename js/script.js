@@ -682,6 +682,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 
 
+
 /* Video reel: autoplay (muted) the video that fills most of the screen */
 (function () {
     const stages = Array.from(document.querySelectorAll('.vstage[data-video-id]'));
@@ -713,12 +714,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function getPlayer(stage) {
         if (players.has(stage) || !apiReady) return players.get(stage);
         const id = stage.dataset.videoId;
-        const player = new YT.Player(stage.querySelector('.vstage-player'), {
-            host: 'https://www.youtube-nocookie.com',
+        // The API replaces the element it is given with its iframe, so give it a
+        // child mount: the iframe then stays inside .vstage-player and fills it.
+        const mount = document.createElement('div');
+        stage.querySelector('.vstage-player').appendChild(mount);
+        const player = new YT.Player(mount, {
+            width: '100%',
+            height: '100%',
             videoId: id,
-            playerVars: { autoplay: 0, mute: 1, playsinline: 1, controls: 1, rel: 0, modestbranding: 1, loop: 1, playlist: id },
+            playerVars: { autoplay: 0, mute: 1, playsinline: 1, controls: 1, rel: 0, modestbranding: 1, loop: 1, playlist: id, origin: window.location.origin },
             events: {
-                onReady: function (e) { e.target.mute(); update(); },
+                onReady: function (e) {
+                    e.target.mute();
+                    stage.classList.add('is-ready'); // show YouTube's own player, so a click can always start it
+                    update();
+                },
                 onStateChange: function (e) {
                     const playing = e.data === YT.PlayerState.PLAYING;
                     stage.classList.toggle('is-playing', playing || e.data === YT.PlayerState.BUFFERING);

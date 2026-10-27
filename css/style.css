@@ -3019,8 +3019,10 @@ body * { text-shadow: none !important; }
     transition: opacity 0.6s ease;
     pointer-events: none;
 }
+.vstage.is-ready .vstage-poster,
 .vstage.is-playing .vstage-poster,
 .vstage.is-playing .vstage-hint { opacity: 0; }
+.vstage-player { z-index: 1; }
 .vstage-hint {
     position: absolute;
     left: 1.2rem;
