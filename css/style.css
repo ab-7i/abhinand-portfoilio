@@ -3016,12 +3016,14 @@ body * { text-shadow: none !important; }
     object-fit: cover;
     z-index: 2;
     filter: saturate(0.55) brightness(0.8);
-    transition: opacity 0.6s ease;
-    pointer-events: none;
+    transition: opacity 0.5s ease;
+    cursor: pointer;
 }
-.vstage.is-ready .vstage-poster,
-.vstage.is-playing .vstage-poster,
-.vstage.is-playing .vstage-hint { opacity: 0; }
+/* The image sits on top until the video is hovered/tapped and has started */
+.vstage.is-active .vstage-poster,
+.vstage.is-active .vstage-hint { pointer-events: none; }
+.vstage.has-started .vstage-poster,
+.vstage.has-started .vstage-hint { opacity: 0 !important; }
 .vstage-player { z-index: 1; }
 .vstage-hint {
     position: absolute;
