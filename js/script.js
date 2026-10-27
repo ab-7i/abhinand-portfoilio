@@ -680,3 +680,104 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitHeroWord);
     window.addEventListener('resize', fitHeroWord);
 })();
+
+
+/* Video reel: autoplay (muted) the video that fills most of the screen */
+(function () {
+    const stages = Array.from(document.querySelectorAll('.vstage[data-video-id]'));
+    if (!stages.length) return;
+
+    const PLAY_AT = 0.7;   // share of the video that must be visible to play
+    const PAUSE_AT = 0.35; // pause once less than this is visible
+    const players = new Map();   // stage -> YT.Player
+    const ratios = new Map();    // stage -> latest visible ratio
+    const userPaused = new Set();
+    let apiReady = false;
+    let current = null;
+    let playTimer = null;
+    const SETTLE_MS = 400; // the video must stay in view this long before it plays (skips fast scrolling)
+
+    function loadApi() {
+        if (window.YT && window.YT.Player) { apiReady = true; update(); return; }
+        const prev = window.onYouTubeIframeAPIReady;
+        window.onYouTubeIframeAPIReady = function () {
+            if (typeof prev === 'function') prev();
+            apiReady = true;
+            update();
+        };
+        const s = document.createElement('script');
+        s.src = 'https://www.youtube.com/iframe_api';
+        document.head.appendChild(s);
+    }
+
+    function getPlayer(stage) {
+        if (players.has(stage) || !apiReady) return players.get(stage);
+        const id = stage.dataset.videoId;
+        const player = new YT.Player(stage.querySelector('.vstage-player'), {
+            host: 'https://www.youtube-nocookie.com',
+            videoId: id,
+            playerVars: { autoplay: 0, mute: 1, playsinline: 1, controls: 1, rel: 0, modestbranding: 1, loop: 1, playlist: id },
+            events: {
+                onReady: function (e) { e.target.mute(); update(); },
+                onStateChange: function (e) {
+                    const playing = e.data === YT.PlayerState.PLAYING;
+                    stage.classList.toggle('is-playing', playing || e.data === YT.PlayerState.BUFFERING);
+                    // A pause the visitor made themselves: don't fight it while the video stays in view
+                    if (e.data === YT.PlayerState.PAUSED && !stage._autoPausing && stage === current) userPaused.add(stage);
+                    stage._autoPausing = false;
+                    if (playing) userPaused.delete(stage);
+                }
+            }
+        });
+        players.set(stage, player);
+        return player;
+    }
+
+    function play(stage) {
+        const p = getPlayer(stage);
+        if (p && typeof p.playVideo === 'function' && !userPaused.has(stage)) p.playVideo();
+    }
+    function pause(stage) {
+        const p = players.get(stage);
+        if (p && typeof p.pauseVideo === 'function' && typeof p.getPlayerState === 'function' &&
+            p.getPlayerState() === YT.PlayerState.PLAYING) {
+            stage._autoPausing = true;
+            p.pauseVideo();
+        }
+    }
+
+    function update() {
+        let best = null, bestRatio = 0;
+        ratios.forEach(function (r, stage) { if (r > bestRatio) { best = stage; bestRatio = r; } });
+        // Create players a little before they are needed so they start quickly
+        ratios.forEach(function (r, stage) { if (r > 0) getPlayer(stage); });
+        if (best && bestRatio >= PLAY_AT) {
+            if (current && current !== best) pause(current);
+            current = best;
+            clearTimeout(playTimer);
+            playTimer = setTimeout(function () {
+                if (current === best && (ratios.get(best) || 0) >= PLAY_AT) play(best);
+            }, SETTLE_MS);
+        } else if (current && (ratios.get(current) || 0) < PAUSE_AT) {
+            clearTimeout(playTimer);
+            pause(current);
+            userPaused.delete(current);
+            current = null;
+        }
+        stages.forEach(function (s) { if ((ratios.get(s) || 0) === 0) userPaused.delete(s); });
+    }
+
+    const media = stages.map(function (s) { return s.querySelector('.vstage-media'); });
+    const io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+            const stage = en.target.closest('.vstage');
+            // Share of the video visible, or share of the screen it covers (tall phones)
+            const screenShare = en.intersectionRect.height / window.innerHeight;
+            ratios.set(stage, Math.max(en.intersectionRatio, Math.min(1, screenShare / 0.8)));
+        });
+        update();
+    }, { threshold: [0, 0.15, 0.35, 0.5, 0.6, 0.7, 0.8, 0.9, 1] });
+    media.forEach(function (m) { io.observe(m); });
+
+    loadApi();
+})();
