@@ -1,10 +1,12 @@
-# Simple workflow for deploying static content to GitHub Pages
+# Deploys GitHub Pages with two versions of the portfolio:
+#   main           -> https://ab-7i.github.io/abhinand-portfoilio/
+#   new-portfolio  -> https://ab-7i.github.io/abhinand-portfoilio/new/
 name: Deploy static content to Pages
 
 on:
-  # Runs on pushes targeting the default branch
+  # Redeploy when either branch changes
   push:
-    branches: ["main"]
+    branches: ["main", "new-portfolio"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -22,22 +24,35 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout main (live site)
         uses: actions/checkout@v4
+        with:
+          ref: main
+          path: site
+
+      - name: Checkout new-portfolio (published under /new/)
+        uses: actions/checkout@v4
+        with:
+          ref: new-portfolio
+          path: site/new
+
+      - name: Remove git metadata and workflow files from the published site
+        run: rm -rf site/.git site/.github site/new/.git site/new/.github
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: '.'
+          path: 'site'
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
