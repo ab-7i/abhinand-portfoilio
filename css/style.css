@@ -3074,3 +3074,8 @@ body * { text-shadow: none !important; }
     .vstage-caption { grid-template-columns: auto 1fr; }
     .vstage-link { grid-column: 1 / -1; }
 }
+
+/* Hide the custom cursor while the pointer is over a video frame */
+body.cursor-away .custom-cursor-dot,
+body.cursor-away .custom-cursor-glow { opacity: 0; }
+.custom-cursor-dot, .custom-cursor-glow { transition: opacity 0.15s ease, width 0.15s ease, height 0.15s ease, background-color 0.15s ease; }

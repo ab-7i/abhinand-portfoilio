@@ -683,6 +683,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
 /* Video reel: autoplay (muted) the video that fills most of the screen */
 (function () {
     const stages = Array.from(document.querySelectorAll('.vstage[data-video-id]'));
@@ -718,11 +719,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // child mount: the iframe then stays inside .vstage-player and fills it.
         const mount = document.createElement('div');
         stage.querySelector('.vstage-player').appendChild(mount);
+        const vars = { autoplay: 0, mute: 1, playsinline: 1, controls: 1, rel: 0, modestbranding: 1, loop: 1, playlist: id };
+        if (/^https?:$/.test(window.location.protocol)) vars.origin = window.location.origin;
         const player = new YT.Player(mount, {
             width: '100%',
             height: '100%',
             videoId: id,
-            playerVars: { autoplay: 0, mute: 1, playsinline: 1, controls: 1, rel: 0, modestbranding: 1, loop: 1, playlist: id, origin: window.location.origin },
+            playerVars: vars,
             events: {
                 onReady: function (e) {
                     e.target.mute();
@@ -790,4 +793,22 @@ document.addEventListener('DOMContentLoaded', () => {
     media.forEach(function (m) { io.observe(m); });
 
     loadApi();
+})();
+
+
+
+/* Custom cursor: YouTube frames swallow mouse events, so hide the custom
+ * cursor while the pointer is inside a frame (or outside the window) and
+ * bring it back on the next mouse move over the page. */
+(function () {
+    const dot = document.getElementById('cursor-dot');
+    const glow = document.getElementById('cursor-glow');
+    if (!dot || !glow) return;
+    function hide() { document.body.classList.add('cursor-away'); }
+    function show() { document.body.classList.remove('cursor-away'); }
+    function isFrame(el) { return !!el && el.tagName === 'IFRAME'; }
+    document.addEventListener('mouseover', function (e) { if (isFrame(e.target)) hide(); });
+    document.addEventListener('mouseout', function (e) { if (!e.relatedTarget || isFrame(e.relatedTarget)) hide(); });
+    document.addEventListener('mousemove', function (e) { if (!isFrame(e.target)) show(); }, { passive: true });
+    window.addEventListener('blur', hide);
 })();
